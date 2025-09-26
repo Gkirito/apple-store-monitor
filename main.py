@@ -12,14 +12,14 @@ from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 from playwright.sync_api import sync_playwright
 
 
+APPLE_LOCALE = os.getenv('LOCALE','hk-zh')
+MODEL_CODE = os.getenv('MODEL', 'MG8G4ZA/A')
+LOCATION = os.getenv('LOCATION', 'Hong Kong')
 APPLE_BASE_URL = 'https://www.apple.com'
-APPLE_LOCALE = 'hk-zh'
-APPLE_LOCALE_PREFIX = f'/{APPLE_LOCALE}' if APPLE_LOCALE else ''
+APPLE_LOCALE_PREFIX = f'/{APPLE_LOCALE}' 
 APPLE_LOCALE_BASE = f'{APPLE_BASE_URL}{APPLE_LOCALE_PREFIX}'
 APPLE_PRODUCT_PATH = 'shop/buy-iphone/iphone-17-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4%BA%E5%99%A8-256gb-%E9%8A%80%E8%89%B2'
-MODEL_CODE = 'MG8G4ZA/A'
 APPLE_BAG_STATUS_PATH = f'shop/fulfillment-messages?fae=true&little=false&parts.0={MODEL_CODE}&mts.0=regular&mts.1=sticky&fts=true'
-LOCATION = 'Hong Kong'
 CHECK_INTERVAL_SECONDS = (15, 60)
 ALERT_CHECK_INTERVAL_SECONDS = 12
 REQUEST_TIMEOUT_SECONDS = 10
