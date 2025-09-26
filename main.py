@@ -252,7 +252,7 @@ def monitor_inventory() -> None:
 
                 log(f"{store['storeName']} - inventory {inventory}")
 
-                if is_buyable:
+                if inventory != '0' and is_buyable:
                     available.append({'storeName': store['storeName'], 'inventory': inventory})
 
             if available:
