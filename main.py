@@ -3,6 +3,7 @@ import time
 import datetime
 import threading
 from contextlib import suppress
+from random import uniform
 from typing import Dict, Iterable, List, Optional
 from urllib.parse import quote
 
@@ -19,8 +20,8 @@ APPLE_PRODUCT_PATH = 'shop/buy-iphone/iphone-17-pro/6.3-%E5%90%8B%E9%A1%AF%E7%A4
 MODEL_CODE = 'MG8G4ZA/A'
 APPLE_BAG_STATUS_PATH = f'shop/fulfillment-messages?fae=true&little=false&parts.0={MODEL_CODE}&mts.0=regular&mts.1=sticky&fts=true'
 LOCATION = 'Hong Kong'
-CHECK_INTERVAL_SECONDS = 3
-ALERT_CHECK_INTERVAL_SECONDS = 1.5
+CHECK_INTERVAL_SECONDS = (3, 7)
+ALERT_CHECK_INTERVAL_SECONDS = 2
 REQUEST_TIMEOUT_SECONDS = 10
 ALERT_RESET_SECONDS = 5
 COOKIE_REFRESH_INTERVAL_SECONDS = 1800
@@ -277,8 +278,9 @@ def monitor_inventory() -> None:
         if alert_sent:
             time.sleep(ALERT_CHECK_INTERVAL_SECONDS)
         else:
-            log(f'Retrying in {CHECK_INTERVAL_SECONDS} seconds (attempt {attempt + 1})...')
-            time.sleep(CHECK_INTERVAL_SECONDS)
+            retry_delay = uniform(*CHECK_INTERVAL_SECONDS)
+            log(f'Retrying in {retry_delay:.1f} seconds (attempt {attempt + 1})...')
+            time.sleep(retry_delay)
 
 
 if __name__ == '__main__':
